@@ -15,7 +15,7 @@ const saveAboutDetails = async (req, res) => {
       return handleResponse(res, 400, "User ID is required", false);
     }
 
-    const aboutData = {
+    const aboutData =[ {
       age,
       address,
       pincode,
@@ -27,11 +27,11 @@ const saveAboutDetails = async (req, res) => {
       gender,
       language,
       maritalStatus,
-    };
+    }];
 
     const existingAbout = await AboutModel.findOneAndUpdate(
       { id: userId }, 
-      aboutData,
+     {$set:{aboutData}},
       { new: true, upsert: true } 
     );
 
@@ -48,7 +48,7 @@ const getUserAbout = async (req, res) => {
   try {
     const userId = req.user.id; 
 
-    const userAboutDetails = await AboutModel.findOne({ id: userId });
+    let userAboutDetails = await AboutModel.findOne({ id: userId });
 
     if (!userAboutDetails) {
       userAboutDetails = {
@@ -64,7 +64,7 @@ const getUserAbout = async (req, res) => {
         language: "",
         maritalStatus: "",
       };
-      return res.status(404).json({ success: false, message: "No user details found" });
+     
     }
 
     return res.status(200).json({ success: true, data: userAboutDetails });

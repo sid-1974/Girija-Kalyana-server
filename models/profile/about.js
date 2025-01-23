@@ -19,6 +19,20 @@ const aboutSchema = new schema(
     gender: { type: String, required: true },
     language: { type: String, required: true },
     maritalStatus: { type: String, required: true },
+    family: [
+      {
+        father: { type: String, required: true },
+        mother: { type: String, required: true },
+        sibling1: { type: String },
+        sibling2: { type: String },
+        religion: { type: String,required:true },
+        caste: { type: String ,required:true },
+        subcaste: { type: String },
+        nakshatra: { type: String },
+        rashi: { type: String,  required:true },
+        gotra: { type: String },
+      },
+    ],
   },
   { timestamps: true }
 );
