@@ -140,12 +140,6 @@ const login = async (req, res) => {
       token,
       user,
       userType
-      // user: {
-      //   id: user._id,
-      //   name: user.name,
-      //   email: user.email,
-      //   userType,
-      // },
     });
   } catch (error) {
     console.error("Login error:", error);
