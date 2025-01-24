@@ -1,5 +1,9 @@
-const {saveAboutDetails,getUserAbout} = require("../controllers/profile/AboutData");
-const {saveFamilyDetails, getUserFamily} = require('../controllers/profile/FamilyData')
+const {saveAboutDetails,getUserAbout} = require("../controllers/user/profile/AboutData");
+const { saveEducationDetails, getUserEducation } = require("../controllers/user/profile/EducationData");
+const {saveFamilyDetails, getUserFamily} = require('../controllers/user/profile/FamilyData');
+const { saveLifeStyleDetails, getUserLifeStyle } = require("../controllers/user/profile/LifeStyle");
+const { saveOtherDetails, getUserOtherinfo } = require("../controllers/user/profile/Others");
+const { savePreferenceDetails, getUserPreference } = require("../controllers/user/profile/Preference");
 const router = require("express").Router();
 const ensureAuthenticated = require('../Middlewares/auth')
 
@@ -8,5 +12,13 @@ router.post("/user-about",ensureAuthenticated , saveAboutDetails);
 router.get("/user-about-details",ensureAuthenticated , getUserAbout);
 router.post("/user-family",ensureAuthenticated , saveFamilyDetails);
 router.get("/user-family-details",ensureAuthenticated , getUserFamily);
+router.post("/user-education",ensureAuthenticated , saveEducationDetails);
+router.get("/user-education-details",ensureAuthenticated , getUserEducation);
+router.post("/user-lifestyle",ensureAuthenticated , saveLifeStyleDetails);
+router.get("/user-lifestyle-details",ensureAuthenticated , getUserLifeStyle);
+router.post("/user-preference",ensureAuthenticated , savePreferenceDetails);
+router.get("/user-preference-details",ensureAuthenticated , getUserPreference);
+router.post("/user-other",ensureAuthenticated , saveOtherDetails);
+router.get("/user-other-details",ensureAuthenticated , getUserOtherinfo);
 
 module.exports = router;

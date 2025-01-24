@@ -1,4 +1,4 @@
-const AboutModel = require("../../models/profile/about");
+const AboutModel = require("../../../models/User/about");
 
 
 const handleResponse = (res, status, message, success, data = null) => {
@@ -29,15 +29,15 @@ const saveAboutDetails = async (req, res) => {
       maritalStatus,
     };
 
-    // Check if the document exists
+   
     const existingAbout = await AboutModel.findOne({ id: userId });
 
     if (existingAbout) {
-      // Update the document if it exists
+      
       await AboutModel.updateOne({ id: userId }, { $set: aboutData });
       return handleResponse(res, 200, "Details updated successfully", true);
     } else {
-      // Create a new document if it doesn't exist
+   
       const newAbout = new AboutModel({ id: userId, ...aboutData });
       await newAbout.save();
       return handleResponse(res, 200, "Details saved successfully", true);
@@ -75,7 +75,7 @@ const getUserAbout = async (req, res) => {
 
     return res.status(200).json({ success: true, data: userAboutDetails });
   } catch (error) {
-    // console.error("Error fetching about details:", error);
+    
     handleResponse(res, 500, "Failed to fetch details", false);
   }
 };

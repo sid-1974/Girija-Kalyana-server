@@ -1,4 +1,4 @@
-const AboutModel = require("../../models/profile/about");
+const AboutModel = require("../../../models/User/about");
 
 const handleResponse = (res, status, message, success, data = null) => {
   res.status(status).json({ message, success, data });
@@ -37,22 +37,22 @@ const saveFamilyDetails = async (req, res) => {
       gotra,
     };
 
-   
     const existingUser = await AboutModel.findOne({ id: userId });
 
     if (existingUser) {
-     
-      existingUser.family = [familyData];
-      await existingUser.save();
-      return handleResponse(res, 200, "Details updated successfully", true, existingUser);
+      await AboutModel.updateOne(
+        { id: userId },
+        { $set: { family: [familyData] } }
+      );
+      return handleResponse(res, 200, "Details saved successfully", true);
     } else {
-      
       const newFamilyDetails = new AboutModel({
         id: userId,
         family: [familyData],
       });
+
       await newFamilyDetails.save();
-      return handleResponse(res, 200, "Details saved successfully", true, newFamilyDetails);
+      return handleResponse(res, 200, "Details saved successfully", true);
     }
   } catch (error) {
     console.error("Error saving family details:", error);
@@ -71,16 +71,23 @@ const getUserFamily = async (req, res) => {
     const userFamilyDetails = await AboutModel.findOne({ id: userId });
 
     if (!userFamilyDetails) {
-    
       return handleResponse(res, 200, "No family details found", true, []);
     }
 
-    if (!Array.isArray(userFamilyDetails.family) || userFamilyDetails.family.length === 0) {
-     
+    if (
+      !Array.isArray(userFamilyDetails.family) ||
+      userFamilyDetails.family.length === 0
+    ) {
       return handleResponse(res, 200, "No family details found", true, []);
     }
 
-    return handleResponse(res, 200, "Family details fetched successfully", true, userFamilyDetails.family);
+    return handleResponse(
+      res,
+      200,
+      "Family details fetched successfully",
+      true,
+      userFamilyDetails.family
+    );
   } catch (error) {
     console.error("Error fetching family details:", error);
     handleResponse(res, 500, "Failed to fetch details", false);
