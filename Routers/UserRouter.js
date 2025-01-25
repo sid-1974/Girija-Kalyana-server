@@ -3,6 +3,7 @@ const { saveEducationDetails, getUserEducation } = require("../controllers/user/
 const {saveFamilyDetails, getUserFamily} = require('../controllers/user/profile/FamilyData');
 const { saveLifeStyleDetails, getUserLifeStyle } = require("../controllers/user/profile/LifeStyle");
 const { saveOtherDetails, getUserOtherinfo } = require("../controllers/user/profile/Others");
+const { savePhotoDetails, getUserPhoto, deletePhoto } = require("../controllers/user/profile/Photo");
 const { savePreferenceDetails, getUserPreference } = require("../controllers/user/profile/Preference");
 const router = require("express").Router();
 const ensureAuthenticated = require('../Middlewares/auth')
@@ -20,5 +21,8 @@ router.post("/user-preference",ensureAuthenticated , savePreferenceDetails);
 router.get("/user-preference-details",ensureAuthenticated , getUserPreference);
 router.post("/user-other",ensureAuthenticated , saveOtherDetails);
 router.get("/user-other-details",ensureAuthenticated , getUserOtherinfo);
+router.post("/user-image",ensureAuthenticated , savePhotoDetails);
+router.get("/user-image-details",ensureAuthenticated , getUserPhoto);
+router.delete("/user-delete-image",ensureAuthenticated , deletePhoto);
 
 module.exports = router;
