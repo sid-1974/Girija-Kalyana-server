@@ -34,7 +34,7 @@ const aboutSchema = new schema(
         gotra: { type: String },
       },
     ],
-    eduction: [
+    education: [
       {
         qualification: { type: String, required: true },
         occupation: { type: String, required: true },

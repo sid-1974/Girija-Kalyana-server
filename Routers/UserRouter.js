@@ -1,3 +1,4 @@
+const saveAllUserDetails = require("../controllers/user/AllUser");
 const {saveAboutDetails,getUserAbout} = require("../controllers/user/profile/AboutData");
 const { saveEducationDetails, getUserEducation } = require("../controllers/user/profile/EducationData");
 const {saveFamilyDetails, getUserFamily} = require('../controllers/user/profile/FamilyData');
@@ -24,5 +25,6 @@ router.get("/user-other-details",ensureAuthenticated , getUserOtherinfo);
 router.post("/user-image",ensureAuthenticated , savePhotoDetails);
 router.get("/user-image-details",ensureAuthenticated , getUserPhoto);
 router.delete("/user-delete-image",ensureAuthenticated , deletePhoto);
+router.get("/alluser-details",ensureAuthenticated , saveAllUserDetails);
 
 module.exports = router;

@@ -24,13 +24,13 @@ const saveEducationDetails = async (req, res) => {
     if (existingUser) {
       await AboutModel.updateOne(
         { id: userId },
-        { $set: { eduction: [EducationData] } }
+        { $set: { education: [EducationData] } }
       );
       return handleResponse(res, 200, "Details saved successfully", true);
     } else {
       const newEducationDetails = new AboutModel({
         id: userId,
-        eduction: [EducationData],
+        education: [EducationData],
       });
       await newEducationDetails.save();
       return handleResponse(res, 200, "Details saved successfully", true);
@@ -54,8 +54,8 @@ const getUserEducation = async (req, res) => {
       return handleResponse(res, 200, "No educational details found", true, []);
     }
     if (
-      !Array.isArray(userEducationDetails.eduction) ||
-      userEducationDetails.eduction.length === 0
+      !Array.isArray(userEducationDetails.education) ||
+      userEducationDetails.education.length === 0
     ) {
       return handleResponse(res, 200, "No Education details found", true, []);
     }
@@ -64,7 +64,7 @@ const getUserEducation = async (req, res) => {
       200,
       "Education details fetched successfully",
       true,
-      userEducationDetails.eduction
+      userEducationDetails.education
     );
   } catch (error) {
     console.error("Error fetching education details:", error);

@@ -109,7 +109,7 @@ const login = async (req, res) => {
     let user = await UserModel.findOne({
       $or: [{ email: identifier }, { phoneNumber: identifier }],
     });
-    console.log("User found:", user);
+    // console.log("User found:", user);
     if (!user) {
       user = await AdminModel.findOne({
         $or: [{ email: identifier }, { phoneNumber: identifier }],
